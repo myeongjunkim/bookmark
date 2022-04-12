@@ -1,3 +1,5 @@
-CAU,2021-01-02_15:49,http://www.cau.ac.kr,, 
-Naver,2021-01-02_15:49,http://naver.com/,portal,Home Daum,2021-01-02_15:49,http://www.daum.net/,portal, 
-EIRIC,2021-01-02_15:49,http://eiric.or.kr,,
+,2021-01-02_15:49,,as,
+Naver,2021-01-02_15:49,http://naverㅇ..com/,portal,Home
+	// 만어미다ㅣㅓ
+Daum,2021-01-02___15:49,http://www.daum..nㅇet/,portal, asd
+EIRIC,2021-01-02_15:49,http://eiric.or.kr,, da

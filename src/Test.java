@@ -6,8 +6,13 @@ public class Test {
 		// TODO Auto-generated method stub
 		System.out.println("Bookmark info\n");
 		
-		BookmarkList firstList = new BookmarkList("test.txt");
-		firstList.getBookmark(0).print();
+		String path = Test.class.getResource("").getPath();
+//	    System.out.println(path);
+		
+		BookmarkList firstList = new BookmarkList(path + "test.txt");
+		firstList.getBookmark(3).print();
+		
+	    System.out.println(firstList.numBookmarks());
 	}
 
 }

@@ -11,32 +11,30 @@ public class Bookmark {
 	
 	public Bookmark(String[] tokens){
 		this.name = tokens[0].trim();
-		this.url = tokens[1].trim();
-		this.pubDate = LocalDateTime.parse(tokens[2].trim(), 
-						DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
+		this.pubDate = LocalDateTime.parse(tokens[1].trim(), 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
+		this.url = tokens[2].trim();
 		this.group = tokens[3].trim();
-		this.memo = tokens[4].trim();
+		this.memo = tokens[4];
 		
 	}
 	
 	public Bookmark(String line){
 		String[] tokens = line.split(",;");
 		this.name = tokens[0].trim();
-		this.url = tokens[1].trim();
-		this.pubDate = LocalDateTime.parse(tokens[2].trim(), 
-						DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
+		this.pubDate = LocalDateTime.parse(tokens[1].trim(), 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
+		this.url = tokens[2].trim();
 		this.group = tokens[3].trim();
-		this.memo = tokens[4].trim();
+		this.memo = tokens[4];
 		
 	}
-	
-
 	
 	public void print() {
 		System.out.println("Bookmark info\n");
 		System.out.println("name: "+this.name);
 		System.out.println("url: "+this.url);
-		System.out.println("pubDate: "+this.pubDate);
+		System.out.println("pubDate: "+this.pubDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm")));
 		System.out.println("group: "+this.group);
 		System.out.println("memo: "+this.memo);
 	}
