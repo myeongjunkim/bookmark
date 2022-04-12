@@ -15,7 +15,7 @@ public class Bookmark {
 				DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
 		this.url = tokens[2].trim();
 		this.group = tokens[3].trim();
-		this.memo = tokens[4];
+		this.memo = tokens[4].trim();
 		
 	}
 	
@@ -26,7 +26,7 @@ public class Bookmark {
 				DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
 		this.url = tokens[2].trim();
 		this.group = tokens[3].trim();
-		this.memo = tokens[4];
+		this.memo = tokens[4].trim();
 		
 	}
 	
