@@ -22,7 +22,9 @@ public class BookmarkList {
 		
 		while (input.hasNextLine()) {
 			String line = input.nextLine().trim();
-//			System.out.println(line);
+			
+			// 행 넘기기
+			if (line.equals("")) continue;
 			
 			// 주석 예외처리
 			if ("//".equals(line.substring(0,2))) continue;
@@ -35,13 +37,13 @@ public class BookmarkList {
 				LocalDateTime.parse(tokens[1].trim(), 
 						DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
 			} catch (DateTimeParseException e) {
-				System.out.println(size+1+"번째 라인의 날짜가 형식에 맞지 않습니다! (2000-01-01_00:00로 임시수정)");
+				System.out.println(size+1+"번째 북마크의 날짜가 형식에 맞지 않습니다! (2000-01-01_00:00로 임시수정)");
 				tokens[1] = "2000-01-01_00:00";
 			}
 			
 			// url miss 예외처리
 			if(tokens[2].trim().equals("")) {
-				System.out.println(size+1+"번째 라인의 url이 생략되었습니다");
+				System.out.println(size+1+"번째 북마크의 url이 생략되었습니다");
 			}
 
 			array[size++] = new Bookmark(tokens);
@@ -72,12 +74,11 @@ public class BookmarkList {
 				this.array[j+1] = target;
 				break;
 				}
-//			}
+			}
 			
 		}
-		
-		
 		
 	}
 
 }
+
