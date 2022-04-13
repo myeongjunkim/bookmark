@@ -33,7 +33,8 @@ public class Bookmark {
 	public void print() {
 		System.out.println("name: "+this.name);
 		System.out.println("url: "+this.url);
-		System.out.println("pubDate: "+this.pubDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm")));
+		System.out.println("pubDate: "+this.pubDate.
+				format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm")));
 		System.out.println("group: "+this.group);
 		System.out.println("memo: "+this.memo);
 		System.out.println();

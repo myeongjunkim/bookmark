@@ -51,7 +51,7 @@ public class BookmarkList {
 	        }
 			input.close();
 			
-		}catch(FileNotFoundException e) {
+		} catch(FileNotFoundException e) {
 			System.out.println("Unknwon BookmarkList data File");
 
 		}
