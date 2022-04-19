@@ -1,5 +1,6 @@
+package midterm;
 
-public class Example {
+public class palindome {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,9 +14,8 @@ public class Example {
 		if (sLen < 2) return true;
 		else if(s.charAt(0) == s.charAt(sLen-1)) {
 			return isPalindrom(s.substring(1,sLen-1));
-		} else {
-			return false;
-		}
+		} else return false;
 	}
+
 
 }
