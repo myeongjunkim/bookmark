@@ -55,21 +55,21 @@ public class BookmarkList {
 			System.out.println("Unknwon BookmarkList data File");
 
 		}
-		
-		
 	}
+	
 	
 	public int numBookmarks() {
 		return size;
 	}
 	
+	
 	public Bookmark getBookmark(int i) {
 		return array[i];
 	}
 	
+	
 	public void mergeByGroup() {
 		System.out.println("Bookmark merge");
-		
 		for(int i=0; i<this.numBookmarks(); i++) {
 			Bookmark target = this.array[i];
 			for(int j=i-1; j>=0; j--) {
