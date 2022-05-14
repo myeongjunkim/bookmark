@@ -13,21 +13,35 @@ public class BookmarkManager extends JFrame {
 		
 		DefaultTableModel model = new DefaultTableModel();
 		String headers[] = {"","Group", "Name", "URL", "Created Time", "Memo"};
+		
+//		String contents[][] = {
+//				{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"},
+//				{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"},
+//				{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"},
+//				{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"},
+//		};
 		model.setColumnCount(headers.length); 
 		model.setColumnIdentifiers(headers);
 		
+		model.addRow(new String[]{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"});
+		model.addRow(new String[]{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"});
+
+//		model.setValueAt("value", 3, 3); 
+//		model.fireTableDataChanged();
+		
+		
 		JTable table = new JTable(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(650, 300));
 		
 		
 
-//		table.getColumnModel().getColumn(0).setPreferredWidth(20);
+
 		
 //		셋트, 변경 후 변경사항 저
-//		model.setValueAt("value", 0, 0); 
-//		model.fireTableDataChanged();
+		
 		
 		
 		JPanel p1 = new JPanel();
