@@ -30,6 +30,7 @@ public class BookmarkManager extends JFrame {
 //		model.fireTableDataChanged();
 		
 		
+		
 		JTable table = new JTable(model);
 		table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		
