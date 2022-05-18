@@ -11,17 +11,19 @@ public class Test {
 		
 		BookmarkList firstList = new BookmarkList(path + "test.txt");
 		
-//		System.out.println();
-//		for(int i=1; i<firstList.numBookmarks(); i++) {
-//			System.out.println(i+"번째 북마크");
+		System.out.println();
+		for(int i=1; i<firstList.numBookmarks(); i++) {
+			System.out.println(i+"번째 북마크");
 //			firstList.getBookmark(i).print();
-//		}
+			System.out.println(firstList.getBookmark(i).group);
+
+		}
 		
 		firstList.mergeByGroup();
 		System.out.println();
 		for(int i=1; i<firstList.numBookmarks(); i++) {
 			System.out.println(i+"번째 북마크");
-			firstList.getBookmark(i).print();
+			System.out.println(firstList.getBookmark(i).group);
 		}
 		
 	}

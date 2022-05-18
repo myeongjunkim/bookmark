@@ -1,6 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,12 +8,14 @@ import java.time.format.DateTimeParseException;
 public class BookmarkList {
 
 	public String name;
-	private Bookmark[] array;
-	private int size=0;
+//	private Bookmark[] array;
+	private ArrayList<Bookmark> array = new ArrayList<>();
+
+//	private int size=0;
 	
 	BookmarkList(String bookmarkFileName) throws FileNotFoundException{
 		this.name = bookmarkFileName;
-		array = new Bookmark[100];
+//		array = new Bookmark[100];
 		
 		try {
 			File file = new File(bookmarkFileName);
@@ -46,7 +47,8 @@ public class BookmarkList {
 					System.out.println("MalformedURLException: wrong URL - No URL ; invalid Bookmark info line:" + line);
 				}
 
-				array[size++] = new Bookmark(tokens);
+//				array[size++] = new Bookmark(tokens);
+				array.add(new Bookmark(tokens));
 			
 	        }
 			input.close();
@@ -59,32 +61,53 @@ public class BookmarkList {
 	
 	
 	public int numBookmarks() {
-		return size;
+		return array.size();
 	}
 	
 	
 	public Bookmark getBookmark(int i) {
-		return array[i];
+		return array.get(i);
 	}
 	
+//	<before>
+//	public void mergeByGroup() {
+//		System.out.println("Bookmark merge");
+//		for(int i=0; i<this.numBookmarks(); i++) {
+//			Bookmark target = this.array[i];
+//			for(int j=i-1; j>=0; j--) {
+//				if(target.group.equals(this.array[j].group)) {
+//					System.out.println(target.group);
+//					for(int k=i-1; k>j; k--) {
+//						this.array[k+1] = this.array[k];
+//					}
+//					this.array[j+1] = target;
+//					break;
+//				}
+//			}
+//			
+//		}
+//		
+//	}
 	
+//	<after>
 	public void mergeByGroup() {
 		System.out.println("Bookmark merge");
-		for(int i=0; i<this.numBookmarks(); i++) {
-			Bookmark target = this.array[i];
-			for(int j=i-1; j>=0; j--) {
-				if(target.group.equals(this.array[j].group)) {
-					System.out.println(target.group);
-					for(int k=i-1; k>j; k--) {
-						this.array[k+1] = this.array[k];
+		for(int i=1; i<this.numBookmarks(); i++) {
+			Bookmark target = this.array.get(i);
+//			System.out.println(target.group);
+			if(target.group != "") {
+				for(int j=i-1; j>=0; j--) {
+					if(target.group.equals(this.array.get(j).group)) {
+						this.array.remove(i);
+						this.array.add(j+1, target);
+						break;
 					}
-				this.array[j+1] = target;
-				break;
+				
 				}
 			}
-			
-		}
+	
 		
+		}
 	}
 
 }
