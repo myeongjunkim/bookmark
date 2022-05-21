@@ -14,17 +14,16 @@ public class BookmarkManager extends JFrame {
 		
 		JButton addBtn = new JButton("ADD");
 		addBtn.addActionListener(new ActionListener() {
-			BookmarkInfo frame;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (frame == null) {
-					frame = new BookmarkInfo();
-					frame.setTitle("BookmarkInfo");
-				    frame.setSize(500, 100);
-				    frame.setLocationRelativeTo(null); // Center the frame
-				    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				    frame.setVisible(true);
-				}
+				
+				BookmarkInfo frame = new BookmarkInfo();
+				frame.setTitle("BookmarkInfo");
+			    frame.setSize(500, 100);
+			    frame.setLocationRelativeTo(null); // Center the frame
+			    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			    frame.setVisible(true);
+				
 				
 			}
 		});

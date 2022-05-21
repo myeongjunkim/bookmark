@@ -7,9 +7,13 @@ public class Test {
 		System.out.println("\n<Bookmark info>\n");
 		
 		String path = Test.class.getResource("").getPath();
-//	    System.out.println(path);
 		
 		BookmarkList firstList = new BookmarkList(path + "test.txt");
+		
+		
+		
+		
+		
 		
 		System.out.println();
 		for(int i=1; i<firstList.numBookmarks(); i++) {

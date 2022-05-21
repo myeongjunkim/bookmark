@@ -5,8 +5,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class BookmarkListPanel extends JPanel{
-	
+		
 	private static final long serialVersionUID = 1L;
+	
 
 	public BookmarkListPanel() {
 		DefaultTableModel model = new DefaultTableModel();
@@ -18,8 +19,16 @@ public class BookmarkListPanel extends JPanel{
 		model.addRow(new String[]{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"});
 		model.addRow(new String[]{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"});
 
+		
+		
+		
+		
+		
+		
+		
+//		모델 다 만들면 table 만들
 		JTable table = new JTable(model);
-		table.getColumnModel().getColumn(0).setPreferredWidth(20);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(600, 300));		
