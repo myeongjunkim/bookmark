@@ -1,3 +1,4 @@
+package bookmarkGUI;
 import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -59,10 +60,11 @@ public class BookmarkList {
 		}
 	}
 	
-	
-	public void pushBookmark(Bookmark bmark) {
-		array.add(bmark);
+	public void pushBookmark(Bookmark newBookmark) {
+		array.add(newBookmark);
+		
 	}
+	
 	
 	public int numBookmarks() {
 		return array.size();
@@ -113,6 +115,9 @@ public class BookmarkList {
 		
 		}
 	}
+
+
+	
 
 }
 
