@@ -7,8 +7,6 @@ public class TestGUI {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-
-		
 		BookmarkManager frame = new BookmarkManager("test.txt");
 	    frame.setTitle("BookmarkManager");
 	    frame.setSize(700, 350);

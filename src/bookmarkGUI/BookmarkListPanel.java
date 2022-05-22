@@ -27,15 +27,11 @@ public class BookmarkListPanel extends JPanel{
 				model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
 
 			} else if(!b.group.equals(lastGroup)) {
-				
-//				System.out.println(b.group+" "+lastGroup);
-
 				model.addRow(new String[]{">", b.group, "", "", "", ""});
 			}
 			lastGroup = b.group;
 		}
 		
-//		model.addRow(new String[]{">", "potal", "naver", "naver.com", "2022.02.02", "dasd"});
 
 		
 		

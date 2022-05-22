@@ -37,7 +37,7 @@ public class BookmarkManager extends JFrame {
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(5, 1));
 		p1.add(addBtn);
-		p1.add(new JButton("DELETE"));
+		p1.add(new JButton("DEaLETE"));
 		p1.add(new JButton("UP"));
 		p1.add(new JButton("DOWN"));
 		p1.add(new JButton("SAVE"));
