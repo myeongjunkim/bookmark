@@ -15,6 +15,7 @@ public class BookmarkManager extends JFrame {
 		
 		String path = BookmarkManager.class.getResource("").getPath();
 		BookmarkList bList = new BookmarkList(path + bookmarkFileName);
+		bList.mergeByGroup();
 		
 		// bookmarkInfo 생성
 		JButton addBtn = new JButton("ADD");

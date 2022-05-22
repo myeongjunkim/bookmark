@@ -51,6 +51,7 @@ public class BookmarkInfo extends JFrame {
 				// newLine을 bookmark class 로 찍어내서 bList에 append
 				Bookmark newBookmark = new Bookmark(token);
 				bList.pushBookmark(newBookmark);
+				bList.mergeByGroup();
 			
 				
 			    setVisible(false);
