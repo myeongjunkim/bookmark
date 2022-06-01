@@ -22,7 +22,8 @@ public class BookmarkManager extends JFrame {
 		addBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				// e.getSource() 활용해보기
+				// 여기를inner class 로 처리해서 frame 내부 컨트롤?
 				BookmarkInfo frame = new BookmarkInfo(bList);
 				frame.setTitle("BookmarkInfo");
 			    frame.setSize(500, 100);
