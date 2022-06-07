@@ -46,6 +46,7 @@ public class BookmarkManager extends JFrame {
 		BookmarkListPanel p2 = new BookmarkListPanel(bList);
 		
 //		전체 jframe 조정
+		
 		setLayout(new BorderLayout());
 		add(p1, BorderLayout.EAST);
 		add(p2, BorderLayout.CENTER);
