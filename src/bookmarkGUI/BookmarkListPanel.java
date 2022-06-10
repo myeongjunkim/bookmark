@@ -20,16 +20,21 @@ public class BookmarkListPanel extends JPanel{
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		String lastGroup = "";
+//		String lastGroup = "";
+//		for(int i=0; i<bList.numBookmarks(); i++) {
+//			Bookmark b = bList.getBookmark(i);
+//			if(b.group =="") {
+//				model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
+//
+//			} else if(!b.group.equals(lastGroup)) {
+//				model.addRow(new String[]{">", b.group, "", "", "", ""});
+//			}
+//			lastGroup = b.group;
+//		}
+		
 		for(int i=0; i<bList.numBookmarks(); i++) {
 			Bookmark b = bList.getBookmark(i);
-			if(b.group =="") {
-				model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
-
-			} else if(!b.group.equals(lastGroup)) {
-				model.addRow(new String[]{">", b.group, "", "", "", ""});
-			}
-			lastGroup = b.group;
+			model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
 		}
 		
 
