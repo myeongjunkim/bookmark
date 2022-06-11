@@ -23,6 +23,56 @@ public class BookmarkManager extends JFrame {
 		bList.mergeByGroup();
 		
 		
+		// 데이터가 들어갈 모델 설
+		
+		
+	
+		
+		class BookmarkListPanel extends JPanel{
+			
+			private static final long serialVersionUID = 1L;
+			
+			DefaultTableModel model = new DefaultTableModel();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			public BookmarkListPanel() {
+				
+				String headers[] = {"","Group", "Name", "URL", "Created Time", "Memo"};
+				model.setColumnCount(headers.length); 
+				model.setColumnIdentifiers(headers);
+				for(int i=0; i<bList.numBookmarks(); i++) {
+					Bookmark b = bList.getBookmark(i);
+					model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
+				}
+				
+				//모델 다 만들면 table 만들
+				JTable table = new JTable(model);
+				table.getColumnModel().getColumn(0).setPreferredWidth(10);
+				table.getColumnModel().getColumn(1).setPreferredWidth(20);
+				table.getColumnModel().getColumn(2).setPreferredWidth(20);
+				table.getColumnModel().getColumn(3).setPreferredWidth(150);
+
+				
+				JScrollPane scrollPane = new JScrollPane(table);
+				scrollPane.setPreferredSize(new Dimension(600, 300));		
+				
+				// 본 panel에 추가
+				add(scrollPane);
+			}
+			
+			// 북마크 재정비 후 렌더링
+			public void BookmarkListPanelRenewal() {
+				Bookmark b = bList.getBookmark(bList.numBookmarks()-1);
+				model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
+
+			}
+			
+		}
+		
+		BookmarkListPanel p2 = new BookmarkListPanel();
+		
+		
+		
+		// add 기능 구현
 		class BookmarkInfo extends JFrame {
 			
 			private static final long serialVersionUID = 1L;
@@ -61,8 +111,11 @@ public class BookmarkManager extends JFrame {
 						// newLine을 bookmark class 로 찍어내서 bList에 append
 						Bookmark newBookmark = new Bookmark(token);
 						bList.pushBookmark(newBookmark);
-						bList.mergeByGroup();
-					
+						
+						System.out.println(token[3] + token[0] + token[2] + token[4]);
+						
+						p2.BookmarkListPanelRenewal();
+						
 					    setVisible(false);
 
 					}
@@ -77,7 +130,7 @@ public class BookmarkManager extends JFrame {
 		}
 		
 		
-		// bookmarkInfo 생성
+		// bookmarkInfo 생성(add 하는 창)
 		JButton addBtn = new JButton("ADD");
 		addBtn.addActionListener(new ActionListener() {
 			
@@ -95,6 +148,8 @@ public class BookmarkManager extends JFrame {
 		});
 		
 		
+		
+		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(5, 1));
 		p1.add(addBtn);
@@ -103,7 +158,7 @@ public class BookmarkManager extends JFrame {
 		p1.add(new JButton("DOWN"));
 		p1.add(new JButton("SAVE"));
 		
-		BookmarkListPanel p2 = new BookmarkListPanel(bList);
+		
 		
 //		전체 jframe 조정
 		
