@@ -10,6 +10,10 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class BookmarkManager extends JFrame {
 	
@@ -28,7 +32,9 @@ public class BookmarkManager extends JFrame {
 		JTable mainTable = new JTable(mainModel);
 
 		
+		// 포메터 설정
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm");
 
 	
 		
@@ -105,7 +111,6 @@ public class BookmarkManager extends JFrame {
 						token[0] = (String)model.getValueAt(0, 1);
 						token[2] = (String)model.getValueAt(0, 2);
 						token[4] = (String)model.getValueAt(0, 3);
-						DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm");
 						token[1] = LocalDateTime.now().format(saveFormatter);
 						
 
@@ -211,7 +216,6 @@ public class BookmarkManager extends JFrame {
 						mainModel.addRow(new String[]{"", renewBookmark.group, renewBookmark.name, renewBookmark.url, renewBookmark.pubDate.format(formatter), renewBookmark.memo});
 					}
 					
-				
 					
 				} else if(upIndex == 0) {
 					JOptionPane.showMessageDialog(null, "맨 위 북마크입니다.");
@@ -256,17 +260,64 @@ public class BookmarkManager extends JFrame {
 		});
 		
 		
+    
+				
+		
+		
+		saveBtn.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				bList.mergeByGroup();
+				//Gui 수정
+				mainModel.setNumRows(0);
+				for(int i=0; i<bList.numBookmarks(); i++) {
+					Bookmark renewBookmark = bList.getBookmark(i);
+					mainModel.addRow(new String[]{"", renewBookmark.group, renewBookmark.name, renewBookmark.url, renewBookmark.pubDate.format(formatter), renewBookmark.memo});
+				}
+				
+				// <구현 할기능 정리>
+				// 클릭된 행잡아오기,bList 수정,gui 수정
+				File file = new File(path+bookmarkFileName);         
+				try {            
+					FileWriter fos = new FileWriter(file);
+					for(int i=0; i<bList.numBookmarks(); i++) {
+						Bookmark b = bList.getBookmark(i);
+						fos.write(b.name +","+ b.pubDate.format(saveFormatter) +","+ b.url +","+ b.group +","+ b.memo);
+						if(i != bList.numBookmarks()-1) {
+							fos.write("\n");
+						}
+					}
+					fos.close();
+
+					JOptionPane.showMessageDialog(null, bookmarkFileName+" 저장완료");
+					
+				} catch (IOException error) {
+					error.printStackTrace();
+				} catch (Exception error) {
+					error.printStackTrace();
+				}
+				
+				
+				
+			}
+				
+				
+				
+		    
+		});		
+		
+		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(5, 1));
 		p1.add(addBtn);
 		p1.add(deleteBtn);
 		p1.add(upBtn);
-		p1.add(saveBtn);
 		p1.add(downBtn);
-		
+		p1.add(saveBtn);
+
 		
 //		전체 jframe 조정
-		
 		setLayout(new BorderLayout());
 		add(p1, BorderLayout.EAST);
 		add(p2, BorderLayout.CENTER);

@@ -39,7 +39,7 @@ public class BookmarkList {
 							DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm"));
 				} catch (DateTimeParseException e) {
 					System.out.println("Date Format Error -> No Created Time invalid Bookmark info line: "+line);
-					// 임시값(추후 수정 툴 만들기)
+					// 임시값(추후 수정)
 					tokens[1] = "2000-01-01_00:00";
 				}
 				
