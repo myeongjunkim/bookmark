@@ -60,11 +60,22 @@ public class BookmarkList {
 		}
 	}
 	
+	public void insertBookmark(int i, Bookmark newBookmark) {
+		array.add(i, newBookmark);
+	}
+	
 	public void pushBookmark(Bookmark newBookmark) {
 		array.add(newBookmark);
 		
 	}
 	
+	public void deleteBookmark(Bookmark deleteBookmark) {
+		array.remove(deleteBookmark);
+	}
+	
+	public void deleteBookmark(int i) {
+		array.remove(i);
+	}
 	
 	public int numBookmarks() {
 		return array.size();

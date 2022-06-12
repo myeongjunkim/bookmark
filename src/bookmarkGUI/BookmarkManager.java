@@ -23,56 +23,57 @@ public class BookmarkManager extends JFrame {
 		bList.mergeByGroup();
 		
 		
-		// 데이터가 들어갈 모델 설
+		// 데이터가 들어갈 모델 선언
+		DefaultTableModel mainModel = new DefaultTableModel();
+		JTable mainTable = new JTable(mainModel);
+
 		
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	
 		
 		class BookmarkListPanel extends JPanel{
 			
 			private static final long serialVersionUID = 1L;
 			
-			DefaultTableModel model = new DefaultTableModel();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			public BookmarkListPanel() {
 				
 				String headers[] = {"","Group", "Name", "URL", "Created Time", "Memo"};
-				model.setColumnCount(headers.length); 
-				model.setColumnIdentifiers(headers);
+				mainModel.setColumnCount(headers.length); 
+				mainModel.setColumnIdentifiers(headers);
 				for(int i=0; i<bList.numBookmarks(); i++) {
 					Bookmark b = bList.getBookmark(i);
-					model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
+					mainModel.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
 				}
 				
 				//모델 다 만들면 table 만들
-				JTable table = new JTable(model);
-				table.getColumnModel().getColumn(0).setPreferredWidth(10);
-				table.getColumnModel().getColumn(1).setPreferredWidth(20);
-				table.getColumnModel().getColumn(2).setPreferredWidth(20);
-				table.getColumnModel().getColumn(3).setPreferredWidth(150);
+				mainTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+				mainTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				mainTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				mainTable.getColumnModel().getColumn(3).setPreferredWidth(150);
 
 				
-				JScrollPane scrollPane = new JScrollPane(table);
+				JScrollPane scrollPane = new JScrollPane(mainTable);
 				scrollPane.setPreferredSize(new Dimension(600, 300));		
 				
 				// 본 panel에 추가
 				add(scrollPane);
 			}
 			
-			// 북마크 재정비 후 렌더링
-			public void BookmarkListPanelRenewal() {
-				Bookmark b = bList.getBookmark(bList.numBookmarks()-1);
-				model.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
-
-			}
 			
 		}
 		
 		BookmarkListPanel p2 = new BookmarkListPanel();
+				
+		JButton addBtn = new JButton("ADD");
+		JButton upBtn = new JButton("UP");
+		JButton downBtn =  new JButton("DOWN");
+		JButton saveBtn = new JButton("SAVE");
+		JButton deleteBtn = new JButton("DELETE");
+
+
 		
-		
-		
-		// add 기능 구현
+		// add  구현
 		class BookmarkInfo extends JFrame {
 			
 			private static final long serialVersionUID = 1L;
@@ -104,23 +105,35 @@ public class BookmarkManager extends JFrame {
 						token[0] = (String)model.getValueAt(0, 1);
 						token[2] = (String)model.getValueAt(0, 2);
 						token[4] = (String)model.getValueAt(0, 3);
+						DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm");
+						token[1] = LocalDateTime.now().format(saveFormatter);
 						
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm");
-						token[1] = LocalDateTime.now().format(formatter);
-						
+
+
 						// newLine을 bookmark class 로 찍어내서 bList에 append
 						Bookmark newBookmark = new Bookmark(token);
 						bList.pushBookmark(newBookmark);
 						
-						System.out.println(token[3] + token[0] + token[2] + token[4]);
 						
-						p2.BookmarkListPanelRenewal();
+						// gui 추가ㅣ			
+						Bookmark b = bList.getBookmark(bList.numBookmarks()-1);
+						mainModel.addRow(new String[]{"", b.group, b.name, b.url, b.pubDate.format(formatter), b.memo});
 						
+						
+						
+					    addBtn.setEnabled(true);
+					    upBtn.setEnabled(true);
+					    downBtn.setEnabled(true);
+					    deleteBtn.setEnabled(true);
+					    saveBtn.setEnabled(true);
+					    
 					    setVisible(false);
 
 					}
 				
 				});
+				
+				
 				
 				setLayout(new BorderLayout());
 				add(inputBtn, BorderLayout.EAST);
@@ -130,13 +143,10 @@ public class BookmarkManager extends JFrame {
 		}
 		
 		
-		// bookmarkInfo 생성(add 하는 창)
-		JButton addBtn = new JButton("ADD");
+		// bookmarkInfo 생성(add 하는 창 띄우기)
 		addBtn.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				// e.getSource() 활용해보기
-				// 여기를inner class 로 처리해서 frame 내부 컨트롤?
 
 				BookmarkInfo frame = new BookmarkInfo();
 				frame.setTitle("BookmarkInfo");
@@ -144,20 +154,115 @@ public class BookmarkManager extends JFrame {
 			    frame.setLocationRelativeTo(null); // Center the frame
 			    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			    frame.setVisible(true);
+			    
+			    addBtn.setEnabled(false);
+			    upBtn.setEnabled(false);
+			    downBtn.setEnabled(false);
+			    deleteBtn.setEnabled(false);
+			    saveBtn.setEnabled(false);
 		    }
 		});
 		
 		
+		// delete 기능구
+		deleteBtn.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				// <구현 할기능 정리>
+				// -  Table.getSelectedRow();로 뭔 놈인지 알아내기
+				// bookmarkList 인 bList 에서 삭제		
+				
+				int deleteIndex = mainTable.getSelectedRow();
+				// gui 수정
+				if(deleteIndex >=0 && deleteIndex < mainTable.getRowCount()) {
+					mainModel.removeRow(deleteIndex);
+					// 그룹 방법으로 갈 경우 수정 필요!!
+					bList.deleteBookmark(deleteIndex);
+				} else {
+					JOptionPane.showMessageDialog(null, "북마크를 선택해 주세요!");
+				}
+				
+		    }
+		});
+		
+		
+		upBtn.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				// <구현 할기능 정리>
+				// 클릭된 행잡아오기,bList 수정,gui 수정
+				
+				int upIndex = mainTable.getSelectedRow();
+				// gui 수정
+				if(upIndex >0 && upIndex < mainTable.getRowCount()) {
+					
+					
+					Bookmark b = bList.getBookmark(upIndex);
+					// 그룹 방법으로 갈 경우 수정 필요!!
+					bList.deleteBookmark(b);
+					bList.insertBookmark(upIndex-1, b);
+					
+					//GUI 수정
+					mainModel.setNumRows(0);
+					for(int i=0; i<bList.numBookmarks(); i++) {
+						Bookmark renewBookmark = bList.getBookmark(i);
+						mainModel.addRow(new String[]{"", renewBookmark.group, renewBookmark.name, renewBookmark.url, renewBookmark.pubDate.format(formatter), renewBookmark.memo});
+					}
+					
+				
+					
+				} else if(upIndex == 0) {
+					JOptionPane.showMessageDialog(null, "맨 위 북마크입니다.");
+				} else {
+					JOptionPane.showMessageDialog(null, "북마크를 선택해 주세요!");
+				}
+				
+		    }
+		});
+		
+		
+		downBtn.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				// <구현 할기능 정리>
+				// 클릭된 행잡아오기,bList 수정,gui 수정
+				
+				int downIndex = mainTable.getSelectedRow();
+				// gui 수정
+				if(downIndex >=0 && downIndex < mainTable.getRowCount()-1) {
+					
+					Bookmark b = bList.getBookmark(downIndex);
+					// 그룹 방법으로 갈 경우 수정 필요!!
+					bList.deleteBookmark(b);
+					bList.insertBookmark(downIndex+1, b);
+					
+					//GUI 수정
+					mainModel.setNumRows(0);
+					for(int i=0; i<bList.numBookmarks(); i++) {
+						Bookmark renewBookmark = bList.getBookmark(i);
+						mainModel.addRow(new String[]{"", renewBookmark.group, renewBookmark.name, renewBookmark.url, renewBookmark.pubDate.format(formatter), renewBookmark.memo});
+					}
+					
+				} else if(downIndex == mainTable.getRowCount()-1) {
+					JOptionPane.showMessageDialog(null, "맨 아래 북마크입니다.");
+				} else {
+					JOptionPane.showMessageDialog(null, "북마크를 선택해 주세요!");
+				}
+				
+		    }
+		});
 		
 		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(5, 1));
 		p1.add(addBtn);
-		p1.add(new JButton("DELETE"));
-		p1.add(new JButton("UP"));
-		p1.add(new JButton("DOWN"));
-		p1.add(new JButton("SAVE"));
-		
+		p1.add(deleteBtn);
+		p1.add(upBtn);
+		p1.add(saveBtn);
+		p1.add(downBtn);
 		
 		
 //		전체 jframe 조정
@@ -166,6 +271,7 @@ public class BookmarkManager extends JFrame {
 		add(p1, BorderLayout.EAST);
 		add(p2, BorderLayout.CENTER);
 		pack();
+		
 	}
 
 }
