@@ -316,7 +316,7 @@ public class BookmarkManager extends JFrame {
 		p1.add(downBtn);
 		p1.add(saveBtn);
 
-		
+	
 //		전체 jframe 조정
 		setLayout(new BorderLayout());
 		add(p1, BorderLayout.EAST);
