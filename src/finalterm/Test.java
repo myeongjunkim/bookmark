@@ -7,6 +7,7 @@ public class Test {
 		System.out.println(testStack.isEmpty());
 		
 		testStack.push("명준 명준");
+		testStack.push("1");
 		
 		System.out.println(testStack.pop());
 		
