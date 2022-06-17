@@ -1,6 +1,5 @@
 package finalterm;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -13,10 +12,9 @@ public class CopyText {
 //			System.exit(0); 
 //		}
 		
-		String path = CopyText.class.getResource("").getPath();
 		// Create input and output files
 		
-		System.out.println(path);
+
 		
 		File sourceFile = new File("test.txt");
 		File targetFile = new File("output.txt");
@@ -25,7 +23,7 @@ public class CopyText {
 		PrintWriter output = new PrintWriter(targetFile);
 		while (input.hasNext()) {
 			String s1 = input.nextLine(); 
-			output.write(s1 + "\n");
+			output.println(s1);
 		}
 		input.close();
 		output.close(); 
